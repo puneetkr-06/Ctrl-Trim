@@ -3,13 +3,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import faceVideo from "../assets/face_shoot.mp4";
 import Marquee from "./Marquee";
+import RotatingText from './RotatingText'
 
 gsap.registerPlugin(ScrollTrigger);
 
 const scrollTexts = [
-  "Gentleman's First Choice",
-  "Crafted Cuts, Confident You",
-  "Book your session with us now!",
+  "CTRL+TRIM offers modern grooming with expert barbers, stylish cuts, and premium care. Book now to experience sharp looks and confident vibes tailored just for you.",
 ];
 
 const ScrollVideo = () => {
@@ -65,19 +64,32 @@ const ScrollVideo = () => {
     >
 
 {/* Left Text */}
-<div className="w-1/2 hidden md:flex flex-col justify-between h-full py-10 pr-4">
+<div className="w-1/2 hidden md:flex flex-col justify-between h-full py-4 px-4 gap-8">
   {/* Centered Text */}
   <div className="flex-1 flex items-center">
-    <div>
-      <h1 className="text-4xl font-staat font-bold text-[#1f1f1f] mb-4 leading-tight">
-        {typedText}
-      </h1>
-    </div>
+<RotatingText  texts={['Get', 'Stylish', 'Cool Haircuts', 'From Experts!']}
+ mainClassName="px-2 sm:px-2 md:px-3 text-8xl font-bold text-neutrl-900 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
+ staggerFrom={"last"}
+  initial={{ y: "100%" }}
+  animate={{ y: 0 }}
+  exit={{ y: "-120%" }}
+ staggerDuration={0.025}
+  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+  transition={{ type: "spring", damping: 30, stiffness: 400 }}
+  rotationInterval={3000}
+/>
   </div>
 
+<div ref={containerRef} className="mt-8">
+  <h2 className="text-2xl font-bold text-gray-700 font-manrope">
+    {typedText}
+  </h2>
+</div>
+
+
   {/* Bottom Button */}
-  <div className="mt-auto">
-    <button className="bg-[#0e5e58] text-white px-6 py-2 rounded-full font-manrope font-semibold hover:bg-[#11806a] transition-all duration-300">
+  <div className="mt-16">
+    <button className="bg-[#0e5e58] text-white px-6 py-2 rounded-full font-manrope font-semibold hover:bg-[#11806a] text-2xl transition-all duration-300">
       Book Appointment
     </button>
   </div>

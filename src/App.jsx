@@ -1,14 +1,15 @@
 import React from "react";
 import ScrollVideo from "./components/ScrollVideo.jsx";
 import Navbar from "./components/Navbar.jsx"
-import Marquee from "./components/Marquee.jsx";
+import {ExpandableCardDemo,CloseIcon} from "./components/Blogs.jsx";
 
 function App() {
   return (
     <div className="bg-neutral-900">
       <Navbar/>
       <ScrollVideo />
-      <div className="h-[300vh] bg-neutral-900">
+      <ExpandableCardDemo/>
+      <div className="h-[300vh]">
         <div className="pt-[120vh] text-center text-white text-4xl font-bold">
           Welcome to Our Barber Studio
         </div>

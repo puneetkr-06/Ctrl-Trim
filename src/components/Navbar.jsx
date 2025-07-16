@@ -1,5 +1,6 @@
 import React from "react";
 import { Scissors, Home, Info, Contact } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { name: "Home", icon: <Home size={18} />, link: "#" },
@@ -10,7 +11,13 @@ const navLinks = [
 
 const Navbar = () => {
   return (
-    <div className="w-full fixed top-0 left-0 z-50 border-b border-white/10">
+    <motion.div
+  initial={{ y: -100, opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ duration: 0.6, ease: "easeOut" }}
+  className="w-full fixed top-0 left-0 z-50 border-b border-white/10 shadow-lg"
+>
+
       <div
         className="flex items-center justify-between px-6 py-4"
         style={{
@@ -41,7 +48,7 @@ const Navbar = () => {
           ))}
         </ul>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
