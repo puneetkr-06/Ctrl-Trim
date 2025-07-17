@@ -1,4 +1,4 @@
-import AnimatedTestimonials from "./ui/animated-testimonials";
+import AnimatedTestimonials from "./ui/AnimatedTestimonials";
 import Customer1 from "../assets/customer1.jpg";
 import Customer2 from "../assets/customer2.jpg";
 import Customer3 from "../assets/customer3.jpg";
