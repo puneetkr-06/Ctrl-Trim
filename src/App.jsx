@@ -1,19 +1,24 @@
 import React from "react";
 import ScrollVideo from "./components/ScrollVideo.jsx";
 import Navbar from "./components/Navbar.jsx"
+import Carousel from "./components/Services.jsx"
 import {ExpandableCardDemo,CloseIcon} from "./components/Blogs.jsx";
+import Customer from "./components/Customer.jsx"
+import Cities from "./components/Cities.jsx"
+import Profile from "./components/Profile.jsx"
+import Footer from "./components/Footer.jsx"
 
 function App() {
   return (
-    <div className="bg-neutral-900">
+    <div className="bg-neutral-900 overflow-x-hidden">
       <Navbar/>
       <ScrollVideo />
+      <Carousel/>
       <ExpandableCardDemo/>
-      <div className="h-[300vh]">
-        <div className="pt-[120vh] text-center text-white text-4xl font-bold">
-          Welcome to Our Barber Studio
-        </div>
-      </div>
+      <Customer/>
+      <Cities/>
+      <Profile/>
+      <Footer/>
     </div>
   );
 }

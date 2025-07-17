@@ -34,8 +34,8 @@ export function ExpandableCardDemo() {
   return (
     <>
 
-<div className="w-full flex justify-center items-center py-8">
-  <h1 className="text-white text-4xl font-bold text-staat text-center">Our Blogs</h1>
+<div className="w-full flex justify-center items-center py-8 overflow-x-hidden">
+  <h1 className="text-white text-4xl font-bold text-staat text-center pb-4">Our Blogs</h1>
 </div>
 
       <AnimatePresence>

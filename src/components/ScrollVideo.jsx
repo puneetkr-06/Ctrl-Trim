@@ -58,13 +58,13 @@ const ScrollVideo = () => {
   }, [currentTextIndex]);
 
   return (
-    <div ref={containerRef} className=" bg-[#b4b4b4] ">
+    <div ref={containerRef} className=" bg-[#b4b4b4] min-h-[700px] overflow-x-hidden">
     <div
       className="w-full flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 relative"
     >
 
 {/* Left Text */}
-<div className="w-1/2 hidden md:flex flex-col justify-between h-full py-4 px-4 gap-8">
+<div className="w-1/2 md:flex flex-col justify-between h-full py-4 px-4 gap-8">
   {/* Centered Text */}
   <div className="flex-1 flex items-center">
 <RotatingText  texts={['Get', 'Stylish', 'Cool Haircuts', 'From Experts!']}
@@ -97,7 +97,7 @@ const ScrollVideo = () => {
 
 
       {/* Right Video Section */}
-      <div className="flex-1 flex justify-center items-center pt-32">
+      <div className="flex-1 flex-wrap justify-center items-center pt-32">
         <video
           ref={videoRef}
           src={faceVideo}

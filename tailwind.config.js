@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      translate: {
+        '101': '101%',
+      },
       fontFamily: {
         manrope: ['Manrope', 'sans-serif'],
         staat: ['Staatliches', 'cursive'],
