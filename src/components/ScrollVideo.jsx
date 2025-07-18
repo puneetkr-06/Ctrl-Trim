@@ -58,9 +58,9 @@ const ScrollVideo = () => {
   }, [currentTextIndex]);
 
   return (
-    <div ref={containerRef} className=" bg-[#b4b4b4] min-h-[700px] overflow-x-hidden">
+    <div ref={containerRef} className=" bg-[#b4b4b4]  overflow-x-hidden">
     <div
-      className="w-full flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 relative"
+      className="w-full min-h-[680px] flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 relative"
     >
 
 {/* Left Text */}
