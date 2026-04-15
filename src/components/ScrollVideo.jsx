@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import faceVideo from "../assets/face_shoot.mp4";
 import Marquee from "./Marquee";
-import RotatingText from './RotatingText'
+import RotatingText from "./RotatingText";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,23 +11,41 @@ const scrollTexts = [
   "CTRL+TRIM offers modern grooming with expert barbers, stylish cuts, and premium care. Book now to experience sharp looks and confident vibes tailored just for you.",
 ];
 
+const rotatingPhrases = ["Get Stylish", "Cool Haircuts", "From Experts!"];
+
 const ScrollVideo = () => {
   const videoRef = useRef(null);
   const containerRef = useRef(null);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [typedText, setTypedText] = useState("");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 639px)");
+    const updateScreenState = (event) => setIsSmallScreen(event.matches);
+
+    setIsSmallScreen(mediaQuery.matches);
+    mediaQuery.addEventListener("change", updateScreenState);
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateScreenState);
+    };
+  }, []);
 
   useEffect(() => {
     const video = videoRef.current;
     video.pause();
 
+    const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+
     const trigger = ScrollTrigger.create({
       trigger: containerRef.current,
-      start: "top top",
-      end: "bottom+=100% top",
+      start: isDesktop ? "top top" : "top 80%",
+      end: isDesktop ? "bottom+=100% top" : "bottom bottom",
       scrub: true,
-      pin: true,
+      pin: isDesktop,
       anticipatePin: 1,
+      invalidateOnRefresh: true,
       onUpdate: (self) => {
         const scrollProgress = self.progress;
         const duration = video.duration;
@@ -57,58 +75,55 @@ const ScrollVideo = () => {
     return () => clearInterval(interval);
   }, [currentTextIndex]);
 
+  const rotatingTextItems = isSmallScreen
+    ? rotatingPhrases.map((phrase) => phrase.replace(" ", "\n"))
+    : rotatingPhrases;
+
   return (
-    <div ref={containerRef} className=" bg-[#b4b4b4]  overflow-x-hidden">
-    <div
-      className="w-full min-h-[680px] flex flex-col lg:flex-row items-center justify-between px-8 lg:px-16 relative"
-    >
+    <section ref={containerRef} className="overflow-x-hidden bg-[#b4b4b4] pt-20 sm:pt-24">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-10 px-5 pt-6 sm:px-8 sm:pt-8 lg:min-h-[680px] lg:flex-row lg:items-center lg:justify-between lg:px-16">
+        <div className="flex w-full flex-col items-center gap-6 text-center lg:w-1/2 lg:items-start lg:text-left lg:gap-8">
+          <div className="flex w-full justify-center lg:justify-start min-h-[200px] sm:min-h-[180px] md:min-h-[200px] lg:min-h-[220px]">
+            <RotatingText
+              texts={rotatingTextItems}
+              mainClassName="px-1 text-6xl font-bold leading-none text-neutral-900 overflow-hidden py-0.5 sm:text-8xl sm:py-1 md:text-7xl md:py-2 lg:text-8xl justify-center rounded-lg"
+              staggerFrom={"last"}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "-120%" }}
+              staggerDuration={0.025}
+              splitBy={isSmallScreen ? "lines" : "characters"}
+              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />
+          </div>
 
-{/* Left Text */}
-<div className="w-1/2 md:flex flex-col justify-between h-full py-4 px-4 gap-8">
-  {/* Centered Text */}
-  <div className="flex-1 flex items-center">
-<RotatingText  texts={['Get', 'Stylish', 'Cool Haircuts', 'From Experts!']}
- mainClassName="px-2 sm:px-2 md:px-3 text-8xl font-bold text-neutrl-900 overflow-hidden py-0.5 sm:py-1 md:py-2 justify-center rounded-lg"
- staggerFrom={"last"}
-  initial={{ y: "100%" }}
-  animate={{ y: 0 }}
-  exit={{ y: "-120%" }}
- staggerDuration={0.025}
-  splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
-  transition={{ type: "spring", damping: 30, stiffness: 400 }}
-  rotationInterval={3000}
-/>
-  </div>
+          <div className="max-w-xl">
+            <h2 className="text-base font-bold text-gray-700 font-manrope sm:text-lg md:text-xl lg:text-2xl">
+              {typedText}
+            </h2>
+          </div>
 
-<div ref={containerRef} className="mt-8">
-  <h2 className="text-2xl font-bold text-gray-700 font-manrope">
-    {typedText}
-  </h2>
-</div>
+          <div className="pt-2 sm:pt-4 lg:pt-8">
+            <button className="rounded-full bg-[#0e5e58] px-5 py-3 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#11806a] sm:px-6 sm:py-3 sm:text-base md:text-lg lg:text-2xl">
+              Book Appointment
+            </button>
+          </div>
+        </div>
 
-
-  {/* Bottom Button */}
-  <div className="mt-16">
-    <button className="bg-[#0e5e58] text-white px-6 py-2 rounded-full font-manrope font-semibold hover:bg-[#11806a] text-2xl transition-all duration-300">
-      Book Appointment
-    </button>
-  </div>
-</div>
-
-
-      {/* Right Video Section */}
-      <div className="flex-1 flex-wrap justify-center items-center pt-32">
-        <video
-          ref={videoRef}
-          src={faceVideo}
-          muted
-          playsInline
-          className="w-[70vw] sm:w-[300px] md:w-[350px] lg:w-[600px] xl:w-[900px] h-auto object-cover"
-        />
+        <div className="flex w-full justify-center lg:w-1/2 lg:justify-end">
+          <video
+            ref={videoRef}
+            src={faceVideo}
+            muted
+            playsInline
+            className=" w-full max-w-[360px] rounded-2xl object-cover sm:max-w-[420px] md:max-w-[520px] lg:max-w-[700px] xl:max-w-[1000px]"
+          />
+        </div>
       </div>
-    </div>
-    <Marquee/>
-    </div>
+      <Marquee />
+    </section>
   );
 };
 
