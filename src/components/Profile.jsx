@@ -1,5 +1,5 @@
 import ProfileCard from './ui/ProfileCard/ProfileCard';
-import photo from '../assets/personal_photo.jpeg';
+import photo from '../assets/cartoon_coder1.jpeg';
 
 const Profile = () => {
   return (
